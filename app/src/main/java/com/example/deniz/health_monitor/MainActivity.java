@@ -28,40 +28,40 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    BodyParts eyeObject;
-    BodyParts armObject;
-    BodyParts brainObject;
-    BodyParts legObject;
-    BodyParts heartObject;
-    TextView eye_energy;
-    TextView arm_energy;
-    TextView leg_energy;
-    TextView brain_energy;
-    TextView heart_energy;
-    TextView second;
-    TextView timer;
+    private BodyParts eyeObject;     //variables
+    private BodyParts armObject;
+    private BodyParts brainObject;
+    private BodyParts legObject;
+    private BodyParts heartObject;
+    private TextView eye_energy;
+    private TextView arm_energy;
+    private TextView leg_energy;
+    private TextView brain_energy;
+    private TextView heart_energy;
+    private TextView second;
+    private TextView timer;
 
-    Button joggingID;
-    Button cyclingID;
-    Button footballID;
-    Button courseID;
-    Button musicID;
-    Button cinemaID;
-    Button eatingID;
-    Button sleepingID;
+    private Button joggingID;
+    private Button cyclingID;
+    private Button footballID;
+    private Button courseID;
+    private Button musicID;
+    private Button cinemaID;
+    private Button eatingID;
+    private Button sleepingID;
 
-    ImageView armImage;
-    ImageView legImage;
-    ImageView brainImage;
-    ImageView eyeImage;
-    ImageView heartImage;
-    File file;
+    private ImageView armImage;
+    private ImageView legImage;
+    private ImageView brainImage;
+    private ImageView eyeImage;
+    private ImageView heartImage;
+    private File file;
 
     private Thread thread;
-    int seekTime=0;
-    int timeCount=0;
-    int count =0;
-    boolean isClicked = false;
+    private int seekTime=0;
+    private int timeCount=0;
+    private int count =0;
+    private boolean isClicked = false;
 
     SeekBar timeBar;
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
         file = createFile();
         SeekBarActivate();
     }
-
+    //create txt file
     public File createFile(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 );
             }
         }
-        String filename ="Activities";
+        String filename ="Activities.txt";
         File root = new File(Environment.getExternalStorageDirectory(), "Notes");
         if (!root.exists()) {
             root.mkdirs();
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
         return gpxfile;
     }
 
+    //write txt file
     public void appendFile(File file,String body){
         try
         {
@@ -137,7 +138,6 @@ public class MainActivity extends AppCompatActivity {
             BufferedWriter out = new BufferedWriter(writer);
             out.append(body+ "\n");
             out.close();
-            Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
         }
         catch(IOException e)
         {
@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Disable Buttons
     public void disableButtons(){
         footballID.setEnabled(false);
         courseID.setEnabled(false);
@@ -157,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         cinemaID.setEnabled(false);
     }
 
+    //Enable Buttons
     private void enableButtons(){
         footballID.setEnabled(true);
         courseID.setEnabled(true);
@@ -168,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
         cinemaID.setEnabled(true);
     }
 
+    //Changing organ's energy
     public void operation(String activity){
         if(activity.equals("Football")){
             ((Arm) armObject).adjustEnergy("Football", armObject.getEnergy());
@@ -208,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Print screen energy and image
     private void printScreen(){
         changingImages();
         arm_energy.setText(armObject.getEnergy() + "");
@@ -219,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Click function and timer
     public void onClick(View v) {
         seekTime = 0;
         switch (v.getId()) {
@@ -526,11 +531,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //changing image function
     public void changingImages(){
 
         if (armObject.getEnergy() >= 65) {
             armImage.setImageResource(R.drawable.arm_green);
-        } else if (armObject.getEnergy() > 35 && armObject.getEnergy() < 65) {
+        } else if (armObject.getEnergy() >= 35 && armObject.getEnergy() < 65) {
             armImage.setImageResource(R.drawable.arm_orange);
         } else {
             armImage.setImageResource(R.drawable.arm_red);
@@ -538,7 +544,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (legObject.getEnergy() >= 65) {
             legImage.setImageResource(R.drawable.leg_green);
-        } else if (legObject.getEnergy() > 35 && legObject.getEnergy() < 65) {
+        } else if (legObject.getEnergy() >= 35 && legObject.getEnergy() < 65) {
             legImage.setImageResource(R.drawable.leg_orange);
         } else {
             legImage.setImageResource(R.drawable.leg_red);
@@ -546,7 +552,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (heartObject.getEnergy() > 65) {
             heartImage.setImageResource(R.drawable.heart_green);
-        } else if (heartObject.getEnergy() > 35 && heartObject.getEnergy() < 65) {
+        } else if (heartObject.getEnergy() >= 35 && heartObject.getEnergy() < 65) {
             heartImage.setImageResource(R.drawable.heart_orange);
         } else {
             heartImage.setImageResource(R.drawable.heart_red);
@@ -554,7 +560,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (brainObject.getEnergy() > 65) {
             brainImage.setImageResource(R.drawable.brain_green);
-        } else if (brainObject.getEnergy() > 35 && brainObject.getEnergy() < 65) {
+        } else if (brainObject.getEnergy() >= 35 && brainObject.getEnergy() < 65) {
             brainImage.setImageResource(R.drawable.brain_orange);
         } else {
             brainImage.setImageResource(R.drawable.brain_red);
@@ -562,13 +568,14 @@ public class MainActivity extends AppCompatActivity {
 
         if (eyeObject.getEnergy() >= 65) {
             eyeImage.setImageResource(R.drawable.eye_green);
-        } else if (eyeObject.getEnergy() > 35 && eyeObject.getEnergy() < 65) {
+        } else if (eyeObject.getEnergy() >= 35 && eyeObject.getEnergy() < 65) {
             eyeImage.setImageResource(R.drawable.eye_orange);
         } else {
             eyeImage.setImageResource(R.drawable.eye_red);
         }
     }
 
+    //Seek bar for select time
     public void SeekBarActivate(){
         timeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -594,13 +601,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Option menu for changing page
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -620,6 +628,7 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.exit) {
             finishAffinity();
+            file.delete();
         }
 
         return super.onOptionsItemSelected(item);

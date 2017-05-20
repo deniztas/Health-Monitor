@@ -5,7 +5,7 @@ package com.example.deniz.health_monitor;
  */
 public class Heart extends BodyParts{
 
-    public int adjustEnergy(String activity, int energy){
+    public int adjustEnergy(String activity, int energy){   //Changing heart energy
         if(activity.equals("Football")){
             energy = energy - 4;
         }

@@ -6,7 +6,7 @@ package com.example.deniz.health_monitor;
 public class Eye extends BodyParts{
 
 
-    public void adjustEnergy(String activity, int energy){
+    public void adjustEnergy(String activity, int energy){   //Changing eye energy
         if(activity.equals("Cinema")){
             energy = energy - 3;
         }
